@@ -60,8 +60,8 @@
            }
        }
        let count=0;
+       let arr=[]
       
-
        function appendDishes(dishes){
         dishes.forEach(function(e){
             let p=document.createElement("p");
@@ -81,20 +81,28 @@
                 img:img.src,
                 name:e.strCategory
             }
+            
             button.addEventListener("click",appendcart)
+            
             function appendcart(){
+               
+
+                arr.push(obj)
               
-              localStorage.setItem("cart",JSON.stringify(obj))
+              localStorage.setItem("cart",JSON.stringify(arr))
            
             count++;
-            console.log(count)
+            console.log(count,arr)
             let ab=document.getElementById("ab").innerText=count;
+           
           }
+         
            
         })
       
        
        }
+       
        menu();
     </script>
 

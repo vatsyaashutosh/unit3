@@ -10,17 +10,29 @@
 <body>
     <h1>Your cart</h1>
     <div id="maindiv"></div>
-    <script>let arr=JSON.parse(localStorage.getItem("cart"))||[]
-    console.log(arr.img)
+    <script>
+       
+
+     
+    let arr=JSON.parse(localStorage.getItem("cart"))||[]
+    
+ arr.forEach(function(element) {
+    console.log("arr",element)
     let p=document.createElement("p");
     let img1=document.createElement("img");
-    img1.src=arr.img;
-    let price=arr.price;
-    let name1=arr.name;
-    p.append(img1,price,name)
+    img1.src=element.img;
+    let price=element.price;
+    let name1=element.name;
+    p.append(img1,price,name1)
     
     let div=document.querySelector("#maindiv");
     div.append(p)
+    
+
+     
+ });
+  
+   
     </script>
     
 </body>

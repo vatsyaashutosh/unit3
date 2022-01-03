@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+        #menu{
+            width: 80%;
+            height: 600px;
+            margin: auto;
+            border: 1px solid black;
+            overflow: scroll;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        #menu>p{
+            color: cadetblue;
+            
+            
+        }
+        #menu>p>button{
+            margin-left: 35%;
+            margin-top:5% ;
+        }
+        h2{
+            margin-left:90%;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Menu</h1>
+    <h2>item count: <span id="ab"></span></h2>
+    
+    <a href="cart.html">cart</a>
+    <div id="menu"></div>
+
+   
+    <script>
+       let m= document.querySelector("#menu");
+       async function menu(){
+           try{
+               let res=await fetch("https://www.themealdb.com/api/json/v1/1/categories.php");
+               let data=await res.json();
+               
+               
+               let arr=data.categories;
+               console.log(arr)
+               appendDishes(arr)
+               
+           }
+           catch(err){
+               console.log(err);
+           }
+       }
+       let count=0;
+      
+
+       function appendDishes(dishes){
+        dishes.forEach(function(e){
+            let p=document.createElement("p");
+            p.innerText=e.strCategory;
+            let img=document.createElement("img")
+            img.src=e.strCategoryThumb;
+            let price=Math.floor(Math.random()*400+100)
+            let button=document.createElement("button");
+            button.innerText="Add to cart";
+            
+           
+            
+            p.append(img,`Price:${price}`,button);
+            m.append(p)
+            let obj={
+                price:price,
+                img:img.src,
+                name:e.strCategory
+            }
+            button.addEventListener("click",appendcart)
+            function appendcart(){
+              
+              localStorage.setItem("cart",JSON.stringify(obj))
+           
+            count++;
+            console.log(count)
+            let ab=document.getElementById("ab").innerText=count;
+          }
+           
+        })
+      
+       
+       }
+       menu();
+    </script>
+
+</body>
+</html>
